@@ -6,6 +6,8 @@ from PIL import Image
 import numpy as np
 from database import Entry, Session
 import pandas as pd
+import sqlite3
+from pathlib import Path
 
 
 # Directory to save images and other data
@@ -113,6 +115,27 @@ def get_history():
     return history_df
 
 
+def export_db_to_csv(db_filename, csv_filename, table_name):
+    # Construct the full paths for the database and the CSV file
+    db_path = Path(db_filename)
+    csv_path = csv_filename  # CSV file will be saved in the /mnt/data directory
+    
+    # Connect to the SQLite database
+    conn = sqlite3.connect(db_path)
+    
+    # Read data from the specified table into a pandas DataFrame
+    query = f"SELECT * FROM {table_name};"
+    df = pd.read_sql_query(query, conn)
+    
+    # Export the DataFrame to a CSV file
+    df.to_csv(csv_path, index=False)
+    
+    # Close the database connection
+    conn.close()
+    
+    return csv_path 
+
+
 # Gradio interface setup
 with gr.Blocks() as demo:
     gr.Markdown("## MySkin Shade Journal")
@@ -128,6 +151,8 @@ with gr.Blocks() as demo:
         get_history_button = gr.Button("Get History")
         history_output = gr.Dataframe()
         entry_id_output = gr.Textbox(label="Entry ID", visible=False)
+        export_button = gr.Button("Export History")
+
 
 
     # Define button click actions
@@ -144,13 +169,20 @@ with gr.Blocks() as demo:
         outputs=[]
     )
 
-    # Action for the get history button
     get_history_button.click(
         fn=get_history,
         inputs=[],
         outputs=[history_output]
     
     )
+
+    export_button.click(
+        fn=lambda: export_db_to_csv('myapp.db', 'exported_history.csv', 'entries'),
+        inputs=[],
+        outputs=[gr.File(label="Download CSV", type="filepath")]
+    )
+
+
 
 if __name__ == "__main__":
     demo.launch(debug=True)
