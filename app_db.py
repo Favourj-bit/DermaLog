@@ -138,7 +138,7 @@ def export_db_to_csv(db_filename, csv_filename, table_name):
 
 # Gradio interface setup
 with gr.Blocks() as demo:
-    gr.Markdown("## MySkin Shade Journal")
+    gr.Markdown("## DermaLog")
     with gr.Column():
         image_input = gr.Image(type="filepath", label="Upload your image")
         submit_button = gr.Button("Analyze Image")
