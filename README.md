@@ -1,2 +1,2 @@
-# MySkin_Shade_Journal
+# DermaLog
 A project that was created for the Robomua hackathon
