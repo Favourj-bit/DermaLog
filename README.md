@@ -7,7 +7,7 @@ Personalized skin journaling
 History tracking and data export for medical consultation and personal use
 
 ## How to Use
-1. Visit the application here: [](https://huggingface.co/spaces/FavourJ/DermaLog)
+1. Visit the application [here:](https://huggingface.co/spaces/FavourJ/DermaLog)
 2. Upload a clear picture of your skin.
 3. Click on the analyze button to get results. Then take notes of important information and click save notes.
 
