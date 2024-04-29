@@ -3,7 +3,9 @@ DermaLog is an innovative application designed to assist individuals in monitori
 
 ## Features
 Interactive skin shade analysis
+
 Personalized skin journaling
+
 History tracking and data export for medical consultation and personal use
 
 ## How to Use
